@@ -11,7 +11,12 @@ class LoseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lose)
 
         btnRestart.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            LivesManager.restartGame()
+            QuestionManager.restartGame()
+            val context = this
+            finish()
+            startActivity(Intent(context, MainActivity::class.java))
+
         }
     }
 

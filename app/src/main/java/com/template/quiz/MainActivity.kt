@@ -21,4 +21,8 @@ class MainActivity : AppCompatActivity() {
             QuestionManager.getNextQuestion(this)
         }
     }
+
+    override fun onBackPressed() {
+        //do nothing
+    }
 }

@@ -6,9 +6,13 @@ import com.template.quiz.questions.*
 import kotlin.random.Random
 
 object QuestionManager {
-    private val questions: BooleanArray = BooleanArray(10) { false }
+    private var questions = BooleanArray(10) { false }
 
     private val answers = arrayOf(1,4,3,4,3,4,1,3,1,2)
+
+    fun restartGame() {
+        questions = BooleanArray(10) { false }
+    }
 
     fun getAnswer(questionNum: Int) =
         answers[questionNum - 1]

@@ -1,11 +1,13 @@
 package com.template.quiz.questions
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.template.quiz.LivesManager
 import com.template.quiz.LoseActivity
 import com.template.quiz.QuestionManager
@@ -82,13 +84,25 @@ class Question2Activity : AppCompatActivity() {
     }
 
     private fun actionsIfAnswerIsCorrent() {
-        makeToast(true)
         QuestionManager.getNextQuestion(this)
     }
 
     private fun actionsIfAnswerIsWrong(view: View) {
         view.alpha = 0.5f
-        makeToast(false)
-        delLive()
+        showAnswDialog()
+    }
+
+    private fun showAnswDialog() {
+        val answer = "Simone Biles from United States had won an individual Gold medal in the Women’s individual event of Artistic gymnastics in 2016 Rio Olympics. Who had won a Gold Medal in the Men’s individual event of Trampoline gymnastics in the 2016 Rio Olympics?"
+        val dialogClickListener =
+            DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> delLive()
+                    DialogInterface.BUTTON_NEUTRAL -> delLive()
+                }
+            }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle("Wrong!").setMessage(answer).setPositiveButton("OK", dialogClickListener).setOnCancelListener() { delLive() }.show()
     }
 }

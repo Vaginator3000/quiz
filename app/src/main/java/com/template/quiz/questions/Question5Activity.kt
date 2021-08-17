@@ -1,11 +1,13 @@
 package com.template.quiz.questions
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.template.quiz.LivesManager
 import com.template.quiz.LoseActivity
 import com.template.quiz.QuestionManager
@@ -83,13 +85,25 @@ class Question5Activity : AppCompatActivity() {
     }
 
     private fun actionsIfAnswerIsCorrent() {
-        makeToast(true)
         QuestionManager.getNextQuestion(this)
     }
 
     private fun actionsIfAnswerIsWrong(view: View) {
         view.alpha = 0.5f
-        makeToast(false)
-        delLive()
+        showAnswDialog()
+    }
+
+    private fun showAnswDialog() {
+        val answer = "The Badminton World Federation works in co-operation with 5 Continental federations. They are Asia, Europe, Americas, Africa and Oceania"
+        val dialogClickListener =
+            DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> delLive()
+                    DialogInterface.BUTTON_NEUTRAL -> delLive()
+                }
+            }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle("Wrong!").setMessage(answer).setPositiveButton("OK", dialogClickListener).setOnCancelListener() { delLive() }.show()
     }
 }

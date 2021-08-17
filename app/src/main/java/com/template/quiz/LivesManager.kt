@@ -15,5 +15,9 @@ object LivesManager {
         lives--
     }
 
+    fun restartGame() {
+        lives = 3
+    }
+
     fun getLivesCount() = lives
 }
